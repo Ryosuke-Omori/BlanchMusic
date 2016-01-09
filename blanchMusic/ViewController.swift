@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         self.webView.delegate = self
         self.view.addSubview(self.webView)
         
-        let url : NSURL = NSURL.URLWithString(NSURL("https://www.youtube.com/watch?feature=player_detailpage&v=\(bestYouTubeId)"))!
+        let url : NSURL = NSURL(string: "https://www.youtube.com/watch?feature=player_detailpage&v=\(bestYouTubeId)")!
         let urlRequest: NSURLRequest = NSURLRequest(URL: url)
         self.webView.loadRequest(urlRequest)
 
@@ -56,7 +56,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
     
-    func webView(webView: UIWebView!, shouldStartLoadWithRequest request: NSURLRequest!, navigationType: UIWebViewNavigationType) -> Bool {
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
         return true
     }
     
@@ -77,7 +77,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell;
     }
     
-    func tableView(tableView: UITableView?, didSelectRowAtIndexPath indexPath:NSIndexPath!) {
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
 //        var text: String = similarArtists[indexPath.row]["name"]
 //        println(text)
 //        var artistName3: String! =  similarArtists[indexPath.row]["name"] as? String
