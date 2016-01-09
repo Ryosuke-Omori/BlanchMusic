@@ -19,23 +19,23 @@ class LastfmRequest {
             var artists:NSArray!
             
             
-            var escapedString = artistName.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let escapedString = artistName.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             print("escapedString: \(escapedString)")
-            var artistNameEscaped:String = escapedString!
+            let artistNameEscaped:String = escapedString!
             
-            var URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.search&artist=\(artistNameEscaped)"
+            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.search&artist=\(artistNameEscaped)"
             print(URL)
             
             
-            var json = parseJSON(getJSON(URL))
-            var result: NSDictionary = json["results"] as! NSDictionary
-            var total:String = result["opensearch:totalResults"] as! String
+            let json = parseJSON(getJSON(URL))
+            let result: NSDictionary = json["results"] as! NSDictionary
+            let total:String = result["opensearch:totalResults"] as! String
             if (total == "0") {
                 print("none")
                 artists = NSArray()
             }
             else {
-                var artistmatches: NSDictionary = result["artistmatches"] as! NSDictionary
+                let artistmatches: NSDictionary = result["artistmatches"] as! NSDictionary
                 artists = artistmatches["artist"] as! NSArray
             }
             
@@ -51,20 +51,20 @@ class LastfmRequest {
             return nil
         }
         else {
-            var artists:NSArray!
+            //var artists:NSArray!
             
-            var escapedString = artistName.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let escapedString = artistName.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             print("escapedString: \(escapedString)")
-            var artistNameEscaped:String = escapedString!
+            let artistNameEscaped:String = escapedString!
             
-            var URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
+            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
             print(URL)
             
             
-            var json = parseJSON(getJSON(URL))
+            let json = parseJSON(getJSON(URL))
             print(json)
             
-            var result: NSDictionary = json["similarartists"] as! NSDictionary
+            let result: NSDictionary = json["similarartists"] as! NSDictionary
 //            var total:String = result["opensearch:totalResults"] as String
 //            if (total == "0") {
 //                println("none")
@@ -72,7 +72,7 @@ class LastfmRequest {
 //            }
 //            else {
 //                var artistmatches: NSDictionary = result["artistmatches"] as NSDictionary
-                var similarList = result["artist"] as! NSArray
+                let similarList = result["artist"] as! NSArray
 //            }
             
             
@@ -90,15 +90,15 @@ class LastfmRequest {
             var tracks:NSArray!
             
             
-            var escapedString = artistName.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+            let escapedString = artistName.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             print("escapedString: \(escapedString)")
-            var artistNameEscaped:String = escapedString!
+            let artistNameEscaped:String = escapedString!
             
-            var URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getTopTracks&artist=\(artistNameEscaped)"
+            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getTopTracks&artist=\(artistNameEscaped)"
             print(URL)
             
             
-            var json = parseJSON(getJSON(URL))
+            let json = parseJSON(getJSON(URL))
 //            var result: NSDictionary = json["results"] as NSDictionary
 //            var total:String = result["opensearch:totalResults"] as String
 //            if (total == "0") {
@@ -106,7 +106,7 @@ class LastfmRequest {
 //                artists = NSArray()
 //            }
 //            else {
-                var toptracks: NSDictionary = json["toptracks"] as! NSDictionary
+                let toptracks: NSDictionary = json["toptracks"] as! NSDictionary
                 tracks = toptracks["track"] as! NSArray
 //            }
             
@@ -121,13 +121,13 @@ class LastfmRequest {
     private func getBestYouTubeIDByKeyword(keyword:String) -> String {
     
         
-        var YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search"
-        var YOUTUBE_API_KEY = "AIzaSyArZbAYSmERlrJTgQggy8bZ_8xU7Y5z0G0"
+        let YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search"
+        let YOUTUBE_API_KEY = "AIzaSyArZbAYSmERlrJTgQggy8bZ_8xU7Y5z0G0"
         
         
-        var escapedString = keyword.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
+        let escapedString = keyword.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
         print("escapedString: \(escapedString)")
-        var keywordEscaped:String = escapedString!
+        let keywordEscaped:String = escapedString!
         
 //        
 //        NSString *url = [NSString stringWithFormat:@"%@%@%@%@%@%@",
@@ -135,12 +135,12 @@ class LastfmRequest {
 //        @"&part=snippet&type=video&order=relevance&regionCode=JP&videoCategoryId=10",//国は日本、カテゴリはMusic
 //        @"&q=", keyword];
         
-        var URL:String = "\(YOUTUBE_API_URL)?key=\(YOUTUBE_API_KEY)&part=snippet&type=video&order=relevance&regionCode=JP&videoCategoryId=10&q=\(keywordEscaped)&maxResults=10"
+        let URL:String = "\(YOUTUBE_API_URL)?key=\(YOUTUBE_API_KEY)&part=snippet&type=video&order=relevance&regionCode=JP&videoCategoryId=10&q=\(keywordEscaped)&maxResults=10"
         
         print(URL)
         
+        let json = parseJSON(getJSON(URL))
         
-        var json = parseJSON(getJSON(URL))
 //        println(json)
         //            var result: NSDictionary = json["results"] as NSDictionary
         //            var total:String = result["opensearch:totalResults"] as String
@@ -153,11 +153,11 @@ class LastfmRequest {
 //        tracks = toptracks["track"] as NSArray
         //            }
         
-        var results:NSArray = json["items"] as! NSArray
+        let results:NSArray = json["items"] as! NSArray
         
-        var firstId:NSDictionary = results[0]["id"] as! NSDictionary
+        let firstId:NSDictionary = results[0]["id"] as! NSDictionary
         
-        var videoId:String = firstId["videoId"] as! String
+        let videoId:String = firstId["videoId"] as! String
         return videoId
 
     }
@@ -165,12 +165,12 @@ class LastfmRequest {
     
     func getBestTrackYoutubeId(artistName:String) -> String {
         
-        var tracks:NSArray = getTopTracks(artistName)
-        var topTrackname:String = tracks[0]["name"] as! String
+        let tracks:NSArray = getTopTracks(artistName)
+        let topTrackname:String = tracks[0]["name"] as! String
         
-        var keyword = "\(artistName) \(topTrackname)"
+        let keyword = "\(artistName) \(topTrackname)"
         
-        var bestId = getBestYouTubeIDByKeyword(keyword)
+        let bestId = getBestYouTubeIDByKeyword(keyword)
         
         return bestId
     }
@@ -183,14 +183,14 @@ class LastfmRequest {
     
     //----------------------------------------------------
     private func getJSON(urlToRequest: String) -> NSData{
-        return NSData(contentsOfURL: NSURL(string: urlToRequest))
+        return NSData(contentsOfURL: NSURL(string: urlToRequest)!)!
     }
     
     private func parseJSON(inputData: NSData) -> NSDictionary{
-        var error: NSError?
-        var boardsDictionary: NSDictionary = NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSDictionary
-        
+        //var error: NSError?
+        let boardsDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
         return boardsDictionary
+        
     }
 
 }
