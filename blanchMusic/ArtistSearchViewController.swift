@@ -78,7 +78,7 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
         // ----------- serch field ------------
         let TEXT_FIELD_H:CGFloat = 40
         let TEXT_FIELD_M:CGFloat = 80
-        let TABBAR_H:CGFloat = 49
+        //let TABBAR_H:CGFloat = 49
         
         let searchBar = UISearchBar()
         searchBar.frame.size = CGSizeMake(MAX_W - TEXT_FIELD_M, TEXT_FIELD_H)
@@ -86,12 +86,12 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
         searchBar.placeholder = "Search Artist..."
         searchBar.setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         var searchBarBG = UIImage(named: "grayBar")
-        searchBarBG = searchBarBG.stretchableImageWithLeftCapWidth(10, topCapHeight: 10)
+        searchBarBG = searchBarBG!.stretchableImageWithLeftCapWidth(10, topCapHeight: 10)
         UISearchBar.appearance().setSearchFieldBackgroundImage(searchBarBG, forState: UIControlState.Normal)
         for subView in searchBar.subviews {
             for secondLevelSubview in subView.subviews  {
                 if (secondLevelSubview.isKindOfClass(UITextField)) {
-                    var textField:UITextField = secondLevelSubview as! UITextField
+                    let textField:UITextField = secondLevelSubview as! UITextField
                     textField.textColor = UIColor.blackColor().colorWithAlphaComponent(0.75)
                     break
                 }
@@ -109,7 +109,7 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
         
         // ----------- result table ------------
         
-        var TABLEVIEW_M_H:CGFloat = 160
+        let TABLEVIEW_M_H:CGFloat = 160
         tableView.frame = CGRectMake(0, TABLEVIEW_M_H, MAX_W, MAX_H - TABLEVIEW_M_H)
         tableView.backgroundColor = BG_COLOR
         self.view.addSubview(tableView)
@@ -134,17 +134,17 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
     }
     
     
-    func tableView(tableView: UITableView?, didSelectRowAtIndexPath indexPath:NSIndexPath!) {
-        var artistName: String = artistList[indexPath.row]["name"] as! String
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
+        let artistName: String = artistList[indexPath.row]["name"] as! String
         
-        var similarArtists = lastfmRequest.getSimilarArtist(artistName)
-        var bestYouTubeId = lastfmRequest.getBestTrackYoutubeId(artistName)
+        let similarArtists = lastfmRequest.getSimilarArtist(artistName)
+        let bestYouTubeId = lastfmRequest.getBestTrackYoutubeId(artistName)
         
         print(artistName)
         print(similarArtists[0])
         print(bestYouTubeId)
         
-        var nextView = ViewController()
+        let nextView = ViewController()
         nextView.artistName = artistName
         nextView.similarArtists = similarArtists
         nextView.bestYouTubeId = bestYouTubeId
