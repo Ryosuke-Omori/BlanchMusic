@@ -57,7 +57,9 @@ class LastfmRequest {
             print("escapedString: \(escapedString)")
             let artistNameEscaped:String = escapedString!
             
-            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
+            let lastfm_api_key = "25a957370e6ff400e1da876a28dbf90e"
+            //let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
+            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=\(lastfm_api_key)&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
             print(URL)
             
             
@@ -95,7 +97,7 @@ class LastfmRequest {
             let artistNameEscaped:String = escapedString!
             
             let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getTopTracks&artist=\(artistNameEscaped)"
-            print(URL)
+            print("URLはどうなったかな？：　\(URL)")
             
             
             let json = parseJSON(getJSON(URL))
@@ -122,7 +124,8 @@ class LastfmRequest {
     
         
         let YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search"
-        let YOUTUBE_API_KEY = "AIzaSyArZbAYSmERlrJTgQggy8bZ_8xU7Y5z0G0"
+        //let YOUTUBE_API_KEY = "AIzaSyArZbAYSmERlrJTgQggy8bZ_8xU7Y5z0G0"
+        let YOUTUBE_API_KEY = "AIzaSyCZ_tHk2pEsLbbsmWyQ_4-LR6iU7rubpGw"
         
         
         let escapedString = keyword.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
