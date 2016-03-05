@@ -17,11 +17,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     var similarArtists : NSArray!
     var bestYouTubeId : String!
     var lastfmRequest = LastfmRequest()
-//    var artistList : [[String:String]] = [
-//        ["image":"hogehoge", "name":"ONEOKROCK"],
-//        ["image":"hhhh", "name":"ELLE"],
-//        ["image":"alkdf", "name":"GALNELYUS"]
-//    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +25,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func sameArtistSubView() {
@@ -47,7 +41,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let url : NSURL = NSURL(string: "https://www.youtube.com/watch?feature=player_detailpage&v=\(bestYouTubeId)")!
         let urlRequest: NSURLRequest = NSURLRequest(URL: url)
         self.webView.loadRequest(urlRequest)
-
+        
         
         sameArtistTable = UITableView(frame: CGRectMake(0, max_h/2, max_w, max_h/2), style: UITableViewStyle.Plain)
         sameArtistTable.delegate = self
@@ -64,35 +58,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return similarArtists.count
     }
     
-//    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
-//        cell.textLabel?.text = artistList[indexPath.row]["name"]
-//        return cell
-//    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: UITableViewCell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: "Cell")
-        //        cell.text = artistList[indexPath.row]["name"] as String
         cell.textLabel?.text = similarArtists[indexPath.row]["name"] as? String
         return cell;
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath:NSIndexPath) {
-//        var text: String = similarArtists[indexPath.row]["name"]
-//        println(text)
-//        var artistName3: String! =  similarArtists[indexPath.row]["name"] as? String
         let nextView = ViewController()
         nextView.artistName = similarArtists[indexPath.row]["name"] as? String
-//        var artistName2: String = similarArtists[indexPath.row]["name"] as? String
-//        var similarArtists = lastfmRequest.getSimilarArtist(artistName)
-//        var bestYouTubeId = lastfmRequest.getBestTrackYoutubeId(artistName)
         let similarArtists2 = lastfmRequest.getSimilarArtist(nextView.artistName)
         let bestYouTubeId = lastfmRequest.getBestTrackYoutubeId(nextView.artistName)
         nextView.similarArtists = similarArtists2
         nextView.bestYouTubeId = bestYouTubeId
         
         self.presentViewController(nextView, animated: true, completion: nil)
-
+        
     }
 }
 

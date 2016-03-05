@@ -44,14 +44,10 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
     var artistList:NSArray = NSArray()
     
     override func viewDidLoad() {
-        
         UIApplication.sharedApplication().setStatusBarStyle(UIStatusBarStyle.LightContent, animated: true)
         
         super.viewDidLoad()
         initViews()
-        
-//        var tracks:NSArray! = lastfmRequest.getBestTrackYoutubeId("ELLEGARDEN")
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -105,7 +101,6 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
         // ----------- serch field ------------
         let TEXT_FIELD_H:CGFloat = 40
         let TEXT_FIELD_M:CGFloat = 80
-        //let TABBAR_H:CGFloat = 49
         
         let searchBar = UISearchBar()
         searchBar.frame.size = CGSizeMake(MAX_W - TEXT_FIELD_M, TEXT_FIELD_H)
@@ -115,9 +110,6 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
         searchBar.setBackgroundImage(UIImage(), forBarPosition: UIBarPosition.Any, barMetrics: UIBarMetrics.Default)
         var searchBarBG = UIImage(named: "grayBar")
         searchBarBG = searchBarBG?.resize(CGSize(width: 10, height: 10))
-//        let searchBarBGEdge:UIEdgeInsets = UIEdgeInsetsMake(0, 0, searchBar.frame.size.height-10, searchBar.frame.size.width-10)
-//        let searchBarBGRect = UIEdgeInsetsInsetRect(searchBar.frame, searchBarBGEdge)
-        //searchBarBG = searchBarBG!.stretchableImageWithLeftCapWidth(10, topCapHeight: 10)
         UISearchBar.appearance().setSearchFieldBackgroundImage(searchBarBG, forState: UIControlState.Normal)
         for subView in searchBar.subviews {
             for secondLevelSubview in subView.subviews  {
@@ -131,12 +123,6 @@ class ArtistSearchViewController: UIViewController,UISearchBarDelegate, UITableV
         searchBar.delegate = self
         self.view.addSubview(searchBar)
         
-//        let underLine = UIView()
-//        underLine.frame = CGRectMake(0, 0, searchBar.frame.size.width, 1)
-//        underLine.center = CGPointMake(searchBar.center.x, searchBar.center.y + TEXT_FIELD_H/2)
-//        underLine.backgroundColor = UIColor.whiteColor().colorWithAlphaComponent(0.7)
-//        self.view.addSubview(underLine)
-//        
         
         // ----------- result table ------------
         

@@ -10,6 +10,8 @@ import Foundation
 
 class LastfmRequest {
     
+    let LASTFM_API_KEY = "25a957370e6ff400e1da876a28dbf90e"
+    
     func searchArtist(artistName:String) -> NSArray! {
         
         if (artistName == "") {
@@ -23,7 +25,9 @@ class LastfmRequest {
             print("escapedString: \(escapedString)")
             let artistNameEscaped:String = escapedString!
             
-            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.search&artist=\(artistNameEscaped)"
+            //let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.search&artist=\(artistNameEscaped)"
+            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=\(LASTFM_API_KEY)&format=json&method=artist.search&artist=\(artistNameEscaped)"
+            
             print(URL)
             
             
@@ -43,7 +47,7 @@ class LastfmRequest {
             return artists
         }
     }
-
+    
     func getSimilarArtist(artistName:String) -> NSArray! {
         
         
@@ -51,32 +55,20 @@ class LastfmRequest {
             return nil
         }
         else {
-            //var artists:NSArray!
             
             let escapedString = artistName.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLHostAllowedCharacterSet())
             print("escapedString: \(escapedString)")
             let artistNameEscaped:String = escapedString!
             
-            let lastfm_api_key = "25a957370e6ff400e1da876a28dbf90e"
             //let URL = "http://ws.audioscrobbler.com/2.0/?api_key=3119649624fae2e9531bc4639a08cba8&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
-            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=\(lastfm_api_key)&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
+            let URL = "http://ws.audioscrobbler.com/2.0/?api_key=\(LASTFM_API_KEY)&format=json&method=artist.getsimilar&artist=\(artistNameEscaped)"
             print(URL)
-            
             
             let json = parseJSON(getJSON(URL))
             print(json)
             
             let result: NSDictionary = json["similarartists"] as! NSDictionary
-//            var total:String = result["opensearch:totalResults"] as String
-//            if (total == "0") {
-//                println("none")
-//                artists = NSArray()
-//            }
-//            else {
-//                var artistmatches: NSDictionary = result["artistmatches"] as NSDictionary
-                let similarList = result["artist"] as! NSArray
-//            }
-            
+            let similarList = result["artist"] as! NSArray
             
             return similarList
         }
@@ -101,16 +93,9 @@ class LastfmRequest {
             
             
             let json = parseJSON(getJSON(URL))
-//            var result: NSDictionary = json["results"] as NSDictionary
-//            var total:String = result["opensearch:totalResults"] as String
-//            if (total == "0") {
-//                println("none")
-//                artists = NSArray()
-//            }
-//            else {
-                let toptracks: NSDictionary = json["toptracks"] as! NSDictionary
-                tracks = toptracks["track"] as! NSArray
-//            }
+            
+            let toptracks: NSDictionary = json["toptracks"] as! NSDictionary
+            tracks = toptracks["track"] as! NSArray
             
             
             return tracks
@@ -121,7 +106,7 @@ class LastfmRequest {
     
     
     private func getBestYouTubeIDByKeyword(keyword:String) -> String {
-    
+        
         
         let YOUTUBE_API_URL = "https://www.googleapis.com/youtube/v3/search"
         //let YOUTUBE_API_KEY = "AIzaSyArZbAYSmERlrJTgQggy8bZ_8xU7Y5z0G0"
@@ -132,37 +117,18 @@ class LastfmRequest {
         print("escapedString: \(escapedString)")
         let keywordEscaped:String = escapedString!
         
-//        
-//        NSString *url = [NSString stringWithFormat:@"%@%@%@%@%@%@",
-//        YOUTUBE_API_URL, @"?key=", YOUTUBE_API_KEY,
-//        @"&part=snippet&type=video&order=relevance&regionCode=JP&videoCategoryId=10",//国は日本、カテゴリはMusic
-//        @"&q=", keyword];
-        
         let URL:String = "\(YOUTUBE_API_URL)?key=\(YOUTUBE_API_KEY)&part=snippet&type=video&order=relevance&regionCode=JP&videoCategoryId=10&q=\(keywordEscaped)&maxResults=10"
         
         print(URL)
         
         let json = parseJSON(getJSON(URL))
-        
-//        println(json)
-        //            var result: NSDictionary = json["results"] as NSDictionary
-        //            var total:String = result["opensearch:totalResults"] as String
-        //            if (total == "0") {
-        //                println("none")
-        //                artists = NSArray()
-        //            }
-        //            else {
-//        var toptracks: NSDictionary = json["toptracks"] as NSDictionary
-//        tracks = toptracks["track"] as NSArray
-        //            }
-        
         let results:NSArray = json["items"] as! NSArray
         
         let firstId:NSDictionary = results[0]["id"] as! NSDictionary
         
         let videoId:String = firstId["videoId"] as! String
         return videoId
-
+        
     }
     
     
@@ -178,24 +144,18 @@ class LastfmRequest {
         return bestId
     }
     
-    
-    
-    
-    
-    
-    
+        
     //----------------------------------------------------
     private func getJSON(urlToRequest: String) -> NSData{
         return NSData(contentsOfURL: NSURL(string: urlToRequest)!)!
     }
     
     private func parseJSON(inputData: NSData) -> NSDictionary{
-        //var error: NSError?
         let boardsDictionary: NSDictionary = try! NSJSONSerialization.JSONObjectWithData(inputData, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
         return boardsDictionary
         
     }
-
+    
 }
 
 
